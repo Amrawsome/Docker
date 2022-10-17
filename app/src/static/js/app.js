@@ -61,6 +61,7 @@ function TodoListCard() {
                     key={item.id}
                     onItemUpdate={onItemUpdate}
                     onItemRemoval={onItemRemoval}
+                    onItemEdit ={onItemEdit}
                 />
             ))}
         </React.Fragment>
@@ -114,7 +115,7 @@ function AddItemForm({ onNewItem }) {
     );
 }
 
-function ItemDisplay({ item, onItemUpdate, onItemRemoval }) {
+function ItemDisplay({ item, onItemUpdate, onItemRemoval, onItemEdit }) {
     const { Container, Row, Col, Button } = ReactBootstrap;
 
     const toggleCompletion = () => {
@@ -135,6 +136,11 @@ function ItemDisplay({ item, onItemUpdate, onItemRemoval }) {
             onItemRemoval(item),
         );
     };
+    const editItem = () => {
+        fetch(`/items/${item.id}`,{method: 'EDIT'}).then(()=>
+        onItemEdit(item)
+        );
+    }
 
     return (
         <Container fluid className={`item ${item.completed && 'completed'}`}>
@@ -169,6 +175,15 @@ function ItemDisplay({ item, onItemUpdate, onItemRemoval }) {
                         aria-label="Remove Item"
                     >
                         <i className="fa fa-trash text-danger" />
+                    </Button>
+                </Col>
+                <Col xs ={10} className="text-center edit">
+                    <Button
+                     size="sm"
+                     variant="link"
+                     onClick={editItem}
+                     aria-label="Edit Item"
+                    >
                     </Button>
                 </Col>
             </Row>
