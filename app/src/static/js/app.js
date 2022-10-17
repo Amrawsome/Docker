@@ -184,6 +184,7 @@ function ItemDisplay({ item, onItemUpdate, onItemRemoval, onItemEdit }) {
                      onClick={editItem}
                      aria-label="Edit Item"
                     >
+                        <i className="fa fa-trash text-danger" />
                     </Button>
                 </Col>
             </Row>
